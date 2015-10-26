@@ -21,9 +21,10 @@ public class PalindromeTester
       {
          System.out.println ("Enter a potential palindrome:");
          str = s.nextLine();
-
+         
          left = 0;
          right = str.length() - 1;
+         
 
          while (str.charAt(left) == str.charAt(right) && left < right)
          {
