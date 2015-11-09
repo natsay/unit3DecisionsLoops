@@ -46,14 +46,59 @@ public class GameOfLifeTest
         /* expected pattern for initial state
          *  (X: alive; -: dead)
          * 
-         *    0 1 2 3 4
-         *  0 - - X - -
-         *  1 - - - - -
-         *  2 X X - - -
-         *  3 - - - - -
-         *  4 - - - - -
+         *    0 1 2 3 4 5 6 7 8 9 10 
+         *  0 
+         *  1 
+         *  2 
+         *  3        X X X X X
+         *  4        X - - - X
+         *  5        X - X - X
+         *  6        X - - - X
+         *  7        X X X X X
+         *  8
+         *  9
+         *  10
          *  
          */
+        
+        /* expected pattern for initial state
+         *  (X: alive; -: dead)
+         * Generation 2
+         *    0 1 2 3 4 5 6 7 8 9 10 
+         *  0 
+         *  1 
+         *  2          X X X
+         *  3        X X X X X
+         *  4      X X - - - X X
+         *  5      X X - - - X X
+         *  6      X X - - - X X
+         *  7        X X X X X
+         *  8          X X X
+         *  9
+         *  10
+         *  
+         */
+        
+         /* expected pattern for initial state
+         *  (X: alive; -: dead)
+         * Generation 3
+         *    0 1 2 3 4 5 6 7 8 9 10 
+         *  0 
+         *  1             X 
+         *  2         X - - - X
+         *  3      X - - - - - - X 
+         *  4      X X - - - X X
+         *  5      X X - - - X X
+         *  6      X X - - - X X
+         *  7        X X X X X
+         *  8          X X X
+         *  9
+         *  10
+         *  
+         */
+        
+        
+        
         
         GameOfLife game = new GameOfLife();
         final int ROWS = game.getNumRows();
