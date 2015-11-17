@@ -16,7 +16,7 @@ Write a program that plays Conway’s Game of Life. Conway’s Game of Life is a
 	Dead Cells: Green 
 	Empty Space: White cells 
 	Pattern: Block
-	5x5 Box 
+	12x12 Box 
 	-Will run for by user input Generations 
 	-If reaches edge, then stop 
 	

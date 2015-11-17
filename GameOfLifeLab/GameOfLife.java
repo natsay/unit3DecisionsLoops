@@ -1,9 +1,14 @@
 import info.gridworld.actor.Actor;
 import info.gridworld.actor.ActorWorld;
 import info.gridworld.actor.Flower;
+import info.gridworld.actor.Rock;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Location;
+import java.lang.Object; 
+import java.util.AbstractCollection; 
+import java.util.AbstractList; 
+import java.util.ArrayList; 
 
 /**
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
@@ -18,8 +23,8 @@ public class GameOfLife
     private ActorWorld world;
     
     // the game board will have 10 rows and 10 columns
-    private final int ROWS = 10;
-    private final int COLS = 10;
+    private final int ROWS = 11;
+    private final int COLS = 11;
     
     /**
      * Default constructor for objects of class GameOfLife
@@ -73,7 +78,7 @@ public class GameOfLife
         
         final int X16 = 3, Y16 = 3;
         final int X17 = 4, Y17 = 3;
-        final int X18 =5, Y18= 3;
+        final int X18 = 5, Y18= 3;
         final int X19 = 6, Y19 = 3;
         final int X20 = 7, Y20 = 3;
         
@@ -156,6 +161,7 @@ public class GameOfLife
         Flower Flower21 = new Flower();
         Location loc21 = new Location(Y21, X21);
         grid.put(loc21, Flower21);
+        world.show(); 
         
         
     }
@@ -168,7 +174,7 @@ public class GameOfLife
      * @post    the world has been populated with a new grid containing the next generation
      * 
      */
-    private void createNextGeneration()
+    public void createNextGeneration()
     {
         /** You will need to read the documentation for the World, Grid, and Location classes
          *      in order to implement the Game of Life algorithm and leverage the GridWorld framework.
@@ -177,10 +183,49 @@ public class GameOfLife
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
         
-        // insert magic here...
+        ArrayList<Location> alive= new ArrayList<Location>(); 
+        ArrayList<Location> dead= new ArrayList<Location>(); 
+        ArrayList<Actor> neighbors= new ArrayList<Actor>(); 
         
+        for(int r=0; r<ROWS; r++)
+        {
+            for(int c=0; c<COLS; c++) 
+            {
+                Location loc= new Location(r,c);
+                Actor cell= grid.get(loc); 
+                neighbors= grid.getNeighbors(loc); 
+                if(cell== null && neighbors.size()==3)
+                {
+                    alive.add(loc);
+                }
+                else if (cell !=null)
+                {
+                    if(neighbors.size()==2 || neighbors.size()==3)
+                    {
+                        alive.add(loc);
+                    }
+                    else
+                    {
+                        dead.add(loc);
+                    }    
+                 }               
+          }
+        }
+        
+        for( Location newloc:dead)
+        {
+            grid.remove(newloc);
+            Rock rock= new Rock(); 
+            grid.put(newloc,rock);
+        }
+        for(Location newloc:alive) 
+        {
+            Flower flower= new Flower(); 
+            grid.put(newloc,flower); 
+        }    
+
     }
-    
+  
     /**
      * Returns the actor at the specified row and column. Intended to be used for unit testing.
      *
@@ -221,9 +266,15 @@ public class GameOfLife
      * Creates an instance of this class. Provides convenient execution.
      *
      */
-    public static void main(String[] args)
+    public static void main(String[] args)throws InterruptedException 
     {
         GameOfLife game = new GameOfLife();
+  
+        for( int i=0; i<=3; i++) 
+        {
+            Thread.sleep(3000);
+            game.createNextGeneration(); 
+        } 
     }
 
 }
