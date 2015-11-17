@@ -212,18 +212,16 @@ public class GameOfLife
           }
         }
         
-        for( Location newloc:dead)
+        for(Location newloc:dead)
         {
             grid.remove(newloc);
-            Rock rock= new Rock(); 
-            grid.put(newloc,rock);
         }
         for(Location newloc:alive) 
         {
             Flower flower= new Flower(); 
             grid.put(newloc,flower); 
         }    
-
+        world.show(); 
     }
   
     /**
