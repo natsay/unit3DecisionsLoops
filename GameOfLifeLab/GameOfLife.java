@@ -14,15 +14,15 @@ import java.util.ArrayList;
  * Game of Life starter code. Demonstrates how to create and populate the game using the GridWorld framework.
  * Also demonstrates how to provide accessor methods to make the class testable by unit tests.
  * 
- * @author @gcschmit
- * @version 18 July 2014
+ * @author @Natalie Tse 
+ * @version November 17 2015 
  */
 public class GameOfLife
 {
     // the world comprised of the grid that displays the graphics for the game
     private ActorWorld world;
     
-    // the game board will have 10 rows and 10 columns
+    // the game board will have 11 rows and 11 columns
     private final int ROWS = 11;
     private final int COLS = 11;
     
@@ -182,41 +182,46 @@ public class GameOfLife
         
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
+        // assigning varibles to different methods in order to distinguish between dead cells, live cells, and neighbors. 
+        ArrayList<Location> alivecells= new ArrayList<Location>(); 
+        ArrayList<Location> deadcells= new ArrayList<Location>(); 
+        ArrayList<Actor> neighbors= new ArrayList<Actor>();
+        // for loop will check through ever row and column for cells and neighbors
+            //- if the cell is null and has exactly 3 neighbors, a new cell is added 
+            //- if the cell is not null but has 2 or 3 neighbors then it lives on to the next generation by adding a new cell at the location 
+            //- and any other dead cell with 2 or 3 neighbors will become alive again 
+            
         
-        ArrayList<Location> alive= new ArrayList<Location>(); 
-        ArrayList<Location> dead= new ArrayList<Location>(); 
-        ArrayList<Actor> neighbors= new ArrayList<Actor>(); 
-        
-        for(int r=0; r<ROWS; r++)
+        for(int row=0; row<ROWS; row++)
         {
-            for(int c=0; c<COLS; c++) 
+            for(int column=0; column<COLS; column++) 
             {
-                Location loc= new Location(r,c);
+                Location loc= new Location(row,column);
                 Actor cell= grid.get(loc); 
                 neighbors= grid.getNeighbors(loc); 
                 if(cell== null && neighbors.size()==3)
                 {
-                    alive.add(loc);
+                    alivecells.add(loc);
                 }
                 else if (cell !=null)
                 {
                     if(neighbors.size()==2 || neighbors.size()==3)
                     {
-                        alive.add(loc);
+                        alivecells.add(loc);
                     }
                     else
                     {
-                        dead.add(loc);
+                        deadcells.add(loc);
                     }    
                  }               
           }
         }
-        
-        for(Location newloc:dead)
+        // after running through the loop above, this loop will remove cells in the location that dead cells are suppose to be and add new cells 
+        for(Location newloc:deadcells)
         {
             grid.remove(newloc);
         }
-        for(Location newloc:alive) 
+        for(Location newloc:alivecells) 
         {
             Flower flower= new Flower(); 
             grid.put(newloc,flower); 
@@ -261,13 +266,13 @@ public class GameOfLife
     
     
     /**
-     * Creates an instance of this class. Provides convenient execution.
-     *
+     * Creates new grid for a new generation 
+     *@post   will create a new grid for between each new generation 
      */
     public static void main(String[] args)throws InterruptedException 
     {
         GameOfLife game = new GameOfLife();
-  
+        //this for loop will only run for 3 generations lasting 3 seconds between each generation  
         for( int i=0; i<=3; i++) 
         {
             Thread.sleep(3000);

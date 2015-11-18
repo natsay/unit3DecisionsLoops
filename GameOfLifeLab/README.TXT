@@ -12,13 +12,13 @@ Requirements
 Write a program that plays Conway’s Game of Life. Conway’s Game of Life is a
 	cellular automaton. From Wikipedia:
 	Requirements: 
-	Live Cells:Red
-	Dead Cells: Green 
-	Empty Space: White cells 
-	Pattern: Block
-	12x12 Box 
-	-Will run for by user input Generations 
-	-If reaches edge, then stop 
+	Live Cells:Flowers
+	Dead Cells: Empty Boxes
+	-There is already an intial design I set.
+	Pattern: 5x5 Box with a live cell in the middle 
+	11x11 Box 
+	-Will run for 3 Generations
+	-It does not wrap around, it will also never reach the edge of the grid 
 	
 
 The universe of the Game of Life is an infinite two-dimensional orthogonal
@@ -71,10 +71,20 @@ Artifacts to Produce:
 * GameOfLife class: You must produce a working class the meets the
 	requirements and is verified and validated by your test plan.
 * Reflection Document: This is a significant and challenging lab. Please
-	reflect on this experience and share your feedback with me. What did you
-	like or dislike and why? What was surprising or unexpected? What did you
-	learn? What questions do you still have? What advice would you offer next
-	year's students?
+	reflect on this experience and share your feedback with me. 
+	What did you like or dislike and why?、
+	A：The algorithm in order to produce was very challenging, but it was all worth it in the end when the program 
+	actully works.
+	What was surprising or unexpected?
+	A: The most surprising part of this program was how short the code actually is, 
+	after getting through the hurdle of getting the algothrim down.
+	What did you learn? 
+	A:NESTED LOOPS ARE AMAZINGGGGGGG!!!!
+	What questions do you still have? 
+	A:None 
+	What advice would you offer next year's students? 
+	A:Do not ovethink the algorithm is is actually very staright forward!
+	Also read the all of doccumentation throughly! 
 
 
 Submission:

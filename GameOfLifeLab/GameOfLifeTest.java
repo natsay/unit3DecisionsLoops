@@ -8,8 +8,8 @@ import info.gridworld.actor.Actor;
 /**
  * The test class GameOfLifeTest.
  *
- * @author  @gcschmit
- * @version 19 July 2014
+ * @author  @Natalie Tse
+ * @version Novemeber 17 2015
  */
 public class GameOfLifeTest
 {
@@ -46,18 +46,19 @@ public class GameOfLifeTest
         /* expected pattern for initial state
          *  (X: alive; -: dead)
          * 
-         *    0 1 2 3 4 5 6 7 8 9 10 
-         *  0 
-         *  1 
-         *  2 
-         *  3        X X X X X
-         *  4        X - - - X
-         *  5        X - X - X
-         *  6        X - - - X
-         *  7        X X X X X
-         *  8
-         *  9
-         *  10
+         *    0 1 2 3 4 5 6 7 8 9 10 11
+         *  0 - - - - - - - - - - - - - 
+         *  1 - - - - - - - - - - - - - 
+         *  2 - - - - - - - - - - - - - 
+         *  3 - - - -X X X X X - - - - -
+         *  4 - - - -X - - - X - - - - -
+         *  5 - - - -X - X - X - - - - -
+         *  6 - - - -X - - - X - - - - -
+         *  7 - - - -X X X X X - - - - -
+         *  8 - - - - - - - - - - - - - 
+         *  9 - - - - - - - - - - - - - 
+         *  10 - - - - - - - - - - - - - 
+         *  11 - - - - - - - - - - - - - 
          *  
          */
         
@@ -98,7 +99,11 @@ public class GameOfLifeTest
                         (row == 4 && col == 3) ||
                         (row == 5 && col == 3) ||
                         (row == 6 && col == 3) ||
-                        (row == 7 && col == 3))                        
+                        (row == 7 && col == 3) || 
+                        
+                        (row == 5 && col == 5))  
+                        
+                        
                         
                 {
                     assertNotNull("expected alive cell at (" + row + ", " + col + ")", cell);
@@ -112,11 +117,58 @@ public class GameOfLifeTest
     }
 
     @Test
-    public void testFinalState()
+    public void testFinalState() throws InterruptedException 
     {
-        /* verify that the actual pattern matches the expected pattern after 3 generations         *  
-         */	
-        // ...
-    }
-}
+       /* expected pattern for final state
+          *  (X: alive; -: dead)
+         * 
+         *    0 1 2 3 4 5 6 7 8 9 10 11
+         *  0 - - - - - - - - - - - - -
+         *  1 - - - - - - - - - - - - -
+         *  2 - - - - - - - - - - - - -
+         *  3 - - - - - - - - - - - - -        
+         *  4 - - - - - X - - - - - - -
+         *  5 - - - - X - X - - - - - -
+         *  6 - - - - - X - - - - - - -
+         *  7 - - - - - - - - - - - - -     
+         *  8 - - - - - - - - - - - - -
+         *  9 - - - - - - - - - - - - -
+         *  10 - - - - - - - - - - - - -
+         *  11 - - - - - - - - - - - - -
+         *  
+         */
+       GameOfLife game = new GameOfLife();
+       final int ROWS = game.getNumRows();
+       final int COLS = game.getNumCols();
+       for( int i=0; i<=3; i++) 
+       {
+           Thread.sleep(3000);
+           game.createNextGeneration();
+       } 
 
+       for(int row = 0; row < ROWS; row++)
+       {
+           for(int col = 0; col < COLS; col++)
+           {
+                // in this example, an alive cell has a non-null actor and a dead cell has a null actor
+              Actor cell = game.getActor(row, col);
+              
+              if(     ( row== 4 && col == 5) ||
+                      ( row== 5 && col == 4) ||
+                      ( row== 6 && col == 5) ||
+                      ( row== 5 && col == 6)) 
+              {
+                  assertNotNull("expected alive cell at (" + row + ", " + col + ")", cell);
+              }    
+              else
+              {
+                  assertNull("expected dead cell at (" + row + ", " + col + ")", cell);
+              }    
+                      
+           }
+       } 
+       
+          
+    }
+      
+}
